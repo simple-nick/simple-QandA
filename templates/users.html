@@ -1,0 +1,40 @@
+{% from 'show_links.html' import show_links %}
+{% extends 'layout.html' %}
+
+
+{% block title %}Users{% endblock %}
+
+{% block nav %}
+  {{ show_links(user) }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container theme-showcase" role="main">
+
+      <div class="page-header">
+        <h1>Users</h1>
+        <h6>Click to promote to expert</h6>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="list-group">
+            {% for elem in user_list %}
+            {% if elem['expert'] == 0 %}
+              <a href="{{ url_for('promote', user_id=elem['id']) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ elem['name'] }}</h4>
+              </a>
+            {% else %}
+              <a href="{{ url_for('degrade', user_id=elem['id']) }}" class="list-group-item active">
+                <h4 class="list-group-item-heading">{{ elem['name'] }}</h4>
+              </a>
+            {% endif %}
+            {% endfor %}
+
+          </div>
+        </div><!-- /.col-lg-12 -->
+      </div>
+
+    </div> <!-- /container -->
+
+{% endblock %}
